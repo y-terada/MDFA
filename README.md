@@ -58,10 +58,8 @@ matrices. More precisely,
 $$
 \begin{aligned}
 \mathcal{L}_n(\Phi) &= \min_{Z} \mathcal{L}_n(\Phi, Z)
-= \operatorname{tr}(\widehat{S}_n) + \operatorname{tr}(\Phi\Phi^\top)
-- 2\operatorname{tr}\left\{(\Phi^\top \widehat{S}_n \Phi)^{1/2}\right\} \\
-&= \operatorname{tr}(\widehat{S}_n) + \operatorname{tr}\{\Sigma(\Phi)\}
-- 2\operatorname{tr}\left\{\left(\widehat{S}_n^{1/2}\Sigma(\Phi)
+= \operatorname{tr}(\widehat{S}_n) + \operatorname{tr}(\Phi\Phi^\top) - 2\operatorname{tr}\left\{(\Phi^\top \widehat{S}_n \Phi)^{1/2}\right\}\\
+&= \operatorname{tr}(\widehat{S}_n) + \operatorname{tr}\{\Sigma(\Phi)\} - 2\operatorname{tr}\left\{\left(\widehat{S}_n^{1/2}\Sigma(\Phi)
 \widehat{S}_n^{1/2}\right)^{1/2}\right\}
 = d_{\mathrm{BW}}^2\left(\widehat{S}_n, \Sigma(\Phi)\right),
 \end{aligned}
