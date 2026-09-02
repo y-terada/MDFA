@@ -6,7 +6,7 @@ Authors@R: person("Yoshikazu", "Terada", email = "terada.yoshikazu.es@osaka-u.ac
 Description: Description: Matrix Decomposition Factor Analysis (MDFA) was proposed as a
     matrix factorization-based approach to factor analysis, but its
     statistical properties had remained largely unexplored for many years.
-    Terada (2025) <arXiv:2403.06968> showed that MDFA is a minimum
+    Terada (2025) <doi:10.48550/arXiv.2403.06968> showed that MDFA is a minimum
     discrepancy function estimator based on the Bures-Wasserstein distance,
     thereby establishing its consistency and asymptotic normality. This
     package performs exploratory factor analysis using MDFA via an
