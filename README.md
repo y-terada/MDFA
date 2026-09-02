@@ -10,24 +10,27 @@ and confidence intervals for the loadings.
 
 ## Installation
 
-This package is not yet on CRAN. Install the development version from a
-local source directory or from GitHub once published:
+This package is not yet on CRAN. Install the development version from
+GitHub:
 
 ```r
-# From a local checkout:
-devtools::install_local("path/to/MDFA")
+# install.packages("devtools")
+devtools::install_github("y-terada/MDFA")
+```
 
-# Or, after this becomes a GitHub repo:
-# devtools::install_github("yourusername/MDFA")
+Or, from a local checkout:
+
+```r
+devtools::install_local("path/to/MDFA")
 ```
 
 ### Dependencies
 
-`MDFA` imports `Rfast`, `psych`, `clue`, `fungible`, and `parallel`. Install
+`MDFA` imports `Rfast`, `psych`, `clue`, and `parallel`. Install
 them first if you don't already have them:
 
 ```r
-install.packages(c("Rfast", "psych", "clue", "fungible"))
+install.packages(c("Rfast", "psych", "clue"))
 ```
 
 `GPArotation` and `mvtnorm` are used for some rotation methods and in the
@@ -61,16 +64,18 @@ res <- MDFA(data = data, nfactors = m, alg = "ALS", n.iter = 1, rotate = "varima
 res$loadings
 
 # With bootstrap confidence intervals
-res_ci <- MDFA(data = data, nfactors = m, alg = "ALS", n.iter = 10^3, rotate = "varimax", trace = 0, REPORT = 0)
+res_ci <- MDFA(
+  data = data, nfactors = m, alg = "ALS", n.iter = 10^3,
+  rotate = "varimax", trace = 0, REPORT = 0, num_cores = 1
+)
 res_ci$cis$means
 res_ci$cis$sds
 ```
 
 See `vignette("intro", package = "MDFA")` for a longer walkthrough, and
-`?MDFA` for full argument documentation. (`MDFA()` is the only exported
-function; the covariance-matrix-only fitting routine it calls internally,
-`MDFA_int()`, is not part of the public interface, but is reachable via
-`MDFA:::MDFA_int()` if needed.)
+`?MDFA` / `?MDFA_cov` for full argument documentation. `MDFA()` fits from raw
+data and supports bootstrap inference; `MDFA_cov()` fits directly from a
+covariance (or correlation) matrix without bootstrapping.
 
 ## Known limitations
 
@@ -79,4 +84,4 @@ function; the covariance-matrix-only fitting routine it calls internally,
 
 ## License
 
-MIT © Your Name
+MIT © Yoshikazu Terada
