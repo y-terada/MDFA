@@ -74,10 +74,6 @@ function; the covariance-matrix-only fitting routine it calls internally,
 
 ## Known limitations
 
-- `rotate = "equamax"` is not implemented (no `equamax()` rotation ships
-  with base R, psych, or GPArotation); calling it raises an informative
-  error. Other rotations (`"varimax"`, `"quartimax"`, `"bentlerT"`,
-  `"targetT"`, `"none"`) work as documented.
 - Bootstrap replication uses `parallel::mclapply()`, which forks processes
   and therefore runs serially (with a warning) on Windows.
 

@@ -108,7 +108,7 @@
 #' 407-424. \doi{10.1007/s11336-017-9600-y}
 #'
 #' Terada, Y. (2025). Statistical properties of matrix decomposition factor
-#' analysis. arXiv:2403.06968.
+#' analysis. \doi{10.48550/arXiv.2403.06968}
 #'
 #' @examples
 #' \donttest{
