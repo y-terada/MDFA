@@ -66,6 +66,7 @@ $$
 = d_{\mathrm{BW}}^2\left(\widehat{S}_n, \Sigma(\Phi)\right),
 \end{aligned}
 $$
+
 where $\Sigma(\Phi) := \Phi\Phi^\top = \Lambda\Lambda^\top + \Psi^2$ and $d_{\mathrm{BW}}(A, B)$ is the
 Bures-Wasserstein distance between positive semidefinite matrices $A$
 and $B$; see Bhatia et al. (2019).
