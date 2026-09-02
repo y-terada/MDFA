@@ -154,12 +154,6 @@ covariance (or correlation) matrix without bootstrapping.
 
 ## References
 
-* Bhatia, R., Jain, T. and Lim, Y. (2019). On the Bures-Wasserstein
-  distance between positive definite matrices. *Expositiones
-  Mathematicae*, 37(2), 165-191.
-  [doi:10.1016/j.exmath.2018.01.002](https://doi.org/10.1016/j.exmath.2018.01.002)
-* Terada, Y. (2025). Statistical properties of matrix decomposition
-  factor analysis. [doi:10.48550/arXiv.2403.06968](https://doi.org/10.48550/arXiv.2403.06968)
 * Adachi, K. (2012). Some contributions to data-fitting factor analysis
   with empirical comparisons to covariance-fitting factor analysis.
   *Journal of the Japanese Society of Computational Statistics*, 25,
@@ -167,6 +161,12 @@ covariance (or correlation) matrix without bootstrapping.
 * Adachi, K. and Trendafilov, N. T. (2018). Some mathematical properties
   of the matrix decomposition solution in factor analysis.
   *Psychometrika*, 83, 407-424. [doi:10.1007/s11336-017-9600-y](https://doi.org/10.1007/s11336-017-9600-y)
+* Bhatia, R., Jain, T. and Lim, Y. (2019). On the Bures-Wasserstein
+  distance between positive definite matrices. *Expositiones
+  Mathematicae*, 37(2), 165-191.
+  [doi:10.1016/j.exmath.2018.01.002](https://doi.org/10.1016/j.exmath.2018.01.002)
+* Terada, Y. (2025). Statistical properties of matrix decomposition
+  factor analysis. [doi:10.48550/arXiv.2403.06968](https://doi.org/10.48550/arXiv.2403.06968)
 
 ## License
 
