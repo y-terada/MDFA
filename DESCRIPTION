@@ -1,0 +1,37 @@
+Package: MDFA
+Type: Package
+Title: Matrix Decomposition Factor Analysis
+Version: 0.1.0
+Authors@R: person("Yoshikazu", "Terada", email = "terada.yoshikazu.es@osaka-u.ac.jp", role = c("aut", "cre"))
+Description: Description: Matrix Decomposition Factor Analysis (MDFA) was proposed as a
+    matrix factorization-based approach to factor analysis, but its
+    statistical properties had remained largely unexplored for many years.
+    Terada (2025) <arXiv:2403.06968> showed that MDFA is a minimum
+    discrepancy function estimator based on the Bures-Wasserstein distance,
+    thereby establishing its consistency and asymptotic normality. This
+    package performs exploratory factor analysis using MDFA via an
+    alternating least squares algorithm (see Adachi and Trendafilov (2018)
+    <doi:10.1007/s11336-017-9600-y> for algorithm details) or a
+    quasi-Newton (BFGS) algorithm. Standard errors and confidence intervals
+    for the loadings are estimated from nonparametric bootstrap
+    replications of the estimation procedure.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+Imports:
+    Rfast,
+    psych,
+    clue,
+    parallel,
+    stats
+Suggests:
+    GPArotation,
+    mvtnorm,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)

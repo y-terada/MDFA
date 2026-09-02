@@ -1,0 +1,89 @@
+---
+title: "Introduction to MDFA"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to MDFA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MDFA)
+```
+
+## Simulating data with a known factor structure
+
+```{r}
+set.seed(1)
+
+p <- 20
+m <- 3
+n <- 100
+
+f_size <- p / m
+Lam_ast <- matrix(0, nrow = p, ncol = m)
+Lam_ast[0 * f_size + (1:f_size), 1] <- 0.9
+Lam_ast[1 * f_size + (1:f_size), 2] <- 0.8
+Lam_ast[2 * f_size + (1:f_size), 3] <- 0.6
+class(Lam_ast) <- "loadings"
+
+uniq_var <- 1 - rowSums(Lam_ast^2)
+Sig_ast <- Lam_ast %*% t(Lam_ast) + diag(uniq_var)
+
+data <- mvtnorm::rmvnorm(n = n, mean = rep(0, p), sigma = Sig_ast)
+```
+
+## Fitting MDFA (no bootstrap)
+
+```{r}
+res_als <- MDFA(
+  data = data, nfactors = m, SMC = TRUE, alg = "ALS",
+  n.iter = 1, tol = 1e-5, trace = 0, REPORT = 0, rotate = "varimax"
+)
+res_als$loadings
+
+res_bfgs <- MDFA(
+  data = data, nfactors = m, SMC = TRUE, alg = "BFGS",
+  n.iter = 1, tol = 1e-5, trace = 0, REPORT = 0, rotate = "varimax"
+)
+res_bfgs$loadings
+```
+
+## Fitting MDFA with bootstrap confidence intervals
+
+`n.iter` controls the number of non-parametric bootstrap replications used
+to compute standard errors and confidence intervals for the loadings. Larger
+values of `n.iter` (e.g. `10^3`, as in the original script this package is
+based on) give more stable intervals but take proportionally longer; this
+vignette uses a small value so it builds quickly.
+
+```{r}
+res_ci <- MDFA(
+  data = data, nfactors = m, SMC = TRUE, alg = "ALS",
+  n.iter = 30, tol = 1e-5, trace = 0, REPORT = 0, rotate = "varimax",
+  num_cores = 1
+)
+
+res_ci$cis$means
+res_ci$cis$sds
+```
+
+## Fitting directly from a covariance matrix
+
+Internally, `MDFA()` computes `cov(data)` and passes it to a non-exported
+helper, `MDFA_cov()`, which does the actual point estimation without any
+bootstrapping. If you already have a covariance (or correlation) matrix and
+don't need bootstrap standard errors, you can call it directly with `:::`:
+
+```{r}
+S <- cov(data)
+res_direct <- MDFA_cov(covar = S, nfactors = m, alg = "ALS", trace = 0, REPORT = 0, rotate = "varimax")
+res_direct$loadings
+```
