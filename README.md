@@ -58,9 +58,9 @@ matrices. More precisely,
 $$
 \begin{aligned}
 \mathcal{L}_n(\Phi) &= \min_{Z} \mathcal{L}_n(\Phi, Z)
-= \mathrm{tr}(\widehat{S}_n) + \mathrm{tr}(\Phi\Phi^\top) - 2\mathrm{tr}\left\{(\Phi^\top \widehat{S}_n \Phi)^{1/2}\right\}\\
-&= \mathrm{tr}(\widehat{S}_n) + \mathrm{tr}\{\Sigma(\Phi)\} - 2\mathrm{tr}\left\{\left(\widehat{S}_n^{1/2}\Sigma(\Phi)
-\widehat{S}_n^{1/2}\right)^{1/2}\right\}
+= \mathrm{tr}(\widehat{S}_n) + \mathrm{tr}(\Phi\Phi^\top) - 2\mathrm{tr}\left\lbrace(\Phi^\top \widehat{S}_n \Phi)^{1/2}\right\rbrace\\
+&= \mathrm{tr}(\widehat{S}_n) + \mathrm{tr}\{\Sigma(\Phi)\} - 2\mathrm{tr}\left\lbrace\left(\widehat{S}_n^{1/2}\Sigma(\Phi)
+\widehat{S}_n^{1/2}\right)^{1/2}\right\rbrace
 = d_{\mathrm{BW}}^2\left(\widehat{S}_n, \Sigma(\Phi)\right),
 \end{aligned}
 $$
