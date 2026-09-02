@@ -35,3 +35,5 @@ VignetteBuilder: knitr
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/y-terada/MDFA
+BugReports: https://github.com/y-terada/MDFA/issues
