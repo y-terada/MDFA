@@ -25,10 +25,10 @@ introduced in the early 2000s and actively developed in computational
 statistics. In MDFA, the estimator is obtained by minimizing the
 following principal-component-analysis-like loss function:
 
-$$
+```math
 \mathcal{L}_n(\Phi, Z) = \frac{1}{n}\|X_n - (F\Lambda^\top + E\Psi)\|_F^2
 = \frac{1}{n}\sum_{i=1}^n \|x_i - (\Lambda f_i + \Psi e_i)\|^2,
-$$
+```
 
 where $\Phi = [\Lambda, \Psi]$ collects the loading matrix $\Lambda$ and
 the (diagonal) unique-variance matrix $\Psi$, $X_n$ is the (centered)
@@ -36,13 +36,13 @@ data matrix with rows $x_i$, and $Z = [F, E]$ collects the common factor
 scores $F \in \mathbb{R}^{n\times m}$ and normalized unique factor scores
 $E \in \mathbb{R}^{n\times p}$, constrained by
 
-$$
+```math
 \mathbf{1}_n^\top F = \mathbf{0}_m^\top,\quad
 \mathbf{1}_n^\top E = \mathbf{0}_p^\top,\quad
 \frac{1}{n}F^\top F = I_m,\quad
 \frac{1}{n}E^\top E = I_p,\quad \text{and}\quad
 F^\top E = O_{m\times p}.
-$$
+```
 
 The minimization problem for $\mathcal{L}_n$ can be solved by a simple
 alternating minimization algorithm. For estimating only $\Phi = [\Lambda,
@@ -55,7 +55,7 @@ minimum discrepancy function (MDF) estimator, using the squared
 Bures-Wasserstein distance between the sample and modeled covariance
 matrices. More precisely, 
 
-$$
+```math
 \begin{aligned}
 \mathcal{L}_n(\Phi) &= \min_{Z} \mathcal{L}_n(\Phi, Z)
 = \mathrm{tr}(\widehat{S}_n) + \mathrm{tr}(\Phi\Phi^\top) - 2\mathrm{tr}\left\lbrace(\Phi^\top \widehat{S}_n \Phi)^{1/2}\right\rbrace\\
@@ -63,7 +63,7 @@ $$
 \widehat{S}_n^{1/2}\right)^{1/2}\right\rbrace
 = d_{\mathrm{BW}}^2\left(\widehat{S}_n, \Sigma(\Phi)\right),
 \end{aligned}
-$$
+```
 
 where $\Sigma(\Phi) := \Phi\Phi^\top = \Lambda\Lambda^\top + \Psi^2$ and $d_{\mathrm{BW}}(A, B)$ is the
 Bures-Wasserstein distance between positive semidefinite matrices $A$
