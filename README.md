@@ -115,31 +115,81 @@ install.packages(c("GPArotation", "mvtnorm"))
 ```r
 library(MDFA)
 
-set.seed(1)
-p <- 20; m <- 3; n <- 100
-
+#Setting
+#================================================
+p <- 50; m <- 5
+#The true factor loading
+#------------------------
 f_size <- p / m
 Lam_ast <- matrix(0, nrow = p, ncol = m)
-Lam_ast[0 * f_size + (1:f_size), 1] <- 0.9
-Lam_ast[1 * f_size + (1:f_size), 2] <- 0.8
-Lam_ast[2 * f_size + (1:f_size), 3] <- 0.6
-
+Lam_ast[0 * f_size + (1:f_size), 1] <- 0.95
+Lam_ast[1 * f_size + (1:f_size), 2] <- 0.90
+Lam_ast[2 * f_size + (1:f_size), 3] <- 0.85
+Lam_ast[3 * f_size + (1:f_size), 4] <- 0.50
+Lam_ast[4 * f_size + (1:f_size), 5] <- 0.45
+#------------------------
+class(Lam_ast) <- "loadings"
+Lam_ast
+#The true uniqueness
 uniq_var <- 1 - rowSums(Lam_ast^2)
+#The true covariance matrix
 Sig_ast <- Lam_ast %*% t(Lam_ast) + diag(uniq_var)
+n <- 10^3
+#================================================
 
+set.seed(123)
 data <- mvtnorm::rmvnorm(n = n, mean = rep(0, p), sigma = Sig_ast)
+colnames(data) <- paste0("V", seq_len(p))
 
-# Point estimate only
-res <- MDFA(data = data, nfactors = m, alg = "ALS", n.iter = 1, rotate = "varimax", trace = 0, REPORT = 0)
+res <- MDFA(
+  data = data, nfactors = m, SMC = TRUE, alg = "ALS",
+  n.iter = 10^3, trace = 0, REPORT = 0, num_cores = 1
+)
 res$loadings
 
-# With bootstrap confidence intervals
-res_ci <- MDFA(
-  data = data, nfactors = m, alg = "ALS", n.iter = 10^3,
-  rotate = "varimax", trace = 0, REPORT = 0, num_cores = 1
-)
-res_ci$cis$means
-res_ci$cis$sds
+# Visualize the loadings and their bootstrap standard errors side by side
+plot_heatmap <- function(M, pal, zlim, main) {
+  nv <- nrow(M); nf <- ncol(M)
+  image(
+    x = seq_len(nf), y = seq_len(nv), z = t(M[nv:1, ]),
+    zlim = zlim, axes = FALSE, xlab = "", ylab = "", col = pal
+  )
+  axis(1, at = seq_len(nf), labels = colnames(M), tick = FALSE)
+  axis(2, at = seq_len(nv), labels = rev(rownames(M)), las = 2, tick = FALSE)
+  title(main)
+}
+plot_colorbar <- function(pal, zlim) {
+  legend_seq <- seq(zlim[1], zlim[2], length.out = 100)
+  image(
+    x = 1, y = legend_seq, z = matrix(legend_seq, nrow = 1),
+    col = pal, axes = FALSE, xlab = "", ylab = ""
+  )
+  axis(4, las = 1)
+}
+
+Lam <- unclass(res$loadings)
+S <- res$cis$sds
+
+pal_lam <- colorRampPalette(c("blue", "white", "red"))(30)
+maxabs <- max(abs(Lam))
+zlim_lam <- c(-maxabs, maxabs) # symmetric around 0 (blue-white-red)
+
+pal_sd <- colorRampPalette(c("white", "red"))(30)
+zlim_sd <- c(0, max(S) * 1.1) # a little headroom above the max
+
+layout(matrix(1:4, nrow = 1), widths = c(3, 1, 3, 1))
+
+par(mar = c(4, 5, 3, 1))
+plot_heatmap(Lam, pal_lam, zlim_lam, "Loadings")
+par(mar = c(4, 1, 3, 3))
+plot_colorbar(pal_lam, zlim_lam)
+
+par(mar = c(4, 3, 3, 1))
+plot_heatmap(S, pal_sd, zlim_sd, "Bootstrap SE")
+par(mar = c(4, 1, 3, 3))
+plot_colorbar(pal_sd, zlim_sd)
+
+layout(1)
 ```
 
 See `vignette("intro", package = "MDFA")` for a longer walkthrough, and
